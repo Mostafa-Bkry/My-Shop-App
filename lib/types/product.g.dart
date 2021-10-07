@@ -12,6 +12,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       description: json['description'] as String,
       price: (json['price'] as num).toDouble(),
       image: json['image'] as String,
+      category: json['category'] as String,
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
@@ -19,5 +20,6 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'title': instance.title,
       'description': instance.description,
       'price': instance.price,
+      'category': instance.category,
       'image': instance.image,
     };

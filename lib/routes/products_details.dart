@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shop/components/counter.dart';
 import 'package:flutter_shop/providers/cart.dart';
+import 'package:flutter_shop/providers/favorites.dart';
 import 'package:provider/provider.dart';
 
-MaterialPageRoute materialPageRoute(
-    {required int id,
-    required String image,
-    required String title,
-    required String description,
-    required double price}) {
+MaterialPageRoute materialPageRoute({
+  required int id,
+  required String image,
+  required String title,
+  required String description,
+  required double price,
+  required String category,
+}) {
   return MaterialPageRoute(builder: (BuildContext context) {
     var cart = Provider.of<CartState>(context);
+    var favoritesState = context.watch<FavoritesState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -55,12 +60,35 @@ MaterialPageRoute materialPageRoute(
       body: ListView(children: [
         Card(
           clipBehavior: Clip.hardEdge,
-          elevation: 15,
+          elevation: 25,
           child: Column(children: [
-            Flexible(child: Container()),
+            Text('Category', style: Theme.of(context).textTheme.headline6),
+            Center(
+              child: Text(
+                category.toUpperCase(),
+                style: Theme.of(context).textTheme.headline4,
+              ),
+            ),
+            const SizedBox(height: 10),
             AspectRatio(
               aspectRatio: 1,
-              child: Image.network(image, fit: BoxFit.cover),
+              child: Stack(children: [
+                Image.network(image, fit: BoxFit.cover),
+                ConstrainedBox(
+                  constraints: const BoxConstraints.expand(),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                          onPressed: () => favoritesState.toggle(id),
+                          icon: favoritesState.ids.contains(id)
+                              ? const Icon(Icons.favorite, color: Colors.red)
+                              : const Icon(Icons.favorite_border)),
+                    ),
+                  ),
+                ),
+              ]),
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -72,19 +100,30 @@ MaterialPageRoute materialPageRoute(
                       Text(description,
                           style: Theme.of(context).textTheme.caption),
                     ])),
-            Center(
-              child: Text(
-                price.toString(),
-                style: const TextStyle(
-                  letterSpacing: 5,
-                  shadows: [
-                    Shadow(color: Colors.black, blurRadius: 8),
-                  ],
-                  fontWeight: FontWeight.w700,
-                  fontSize: 25,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: 170,
+                alignment: Alignment.center,
+                color: Colors.blue[800],
+                child: Text(
+                  price.toString(),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    letterSpacing: 5,
+                    shadows: [
+                      Shadow(color: Colors.white, blurRadius: 8),
+                    ],
+                    fontWeight: FontWeight.w700,
+                    fontSize: 25,
+                  ),
                 ),
               ),
             ),
+            Counter(
+                value: cart.entries[id]?.quantity ?? 0,
+                onUpdate: (count) =>
+                    cart.update(CartEntry(id: id, quantity: count))),
             ElevatedButton(
               style: ButtonStyle(
                   minimumSize: MaterialStateProperty.all(const Size(0, 40)),
@@ -92,7 +131,7 @@ MaterialPageRoute materialPageRoute(
                   overlayColor: MaterialStateProperty.all(Colors.yellow),
                   alignment: Alignment.center,
                   backgroundColor: MaterialStateProperty.all(Colors.blue[800])),
-              onPressed: () => print('Done'),
+              onPressed: () => Navigator.of(context).pushNamed('/purchase'),
               child: const Text(
                 'Buy',
                 style: TextStyle(

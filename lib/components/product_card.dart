@@ -23,7 +23,8 @@ class ProductCard extends StatelessWidget {
             image: product.image,
             title: product.title,
             description: product.description,
-            price: product.price)),
+            price: product.price,
+            category: product.category)),
         child: Card(
           clipBehavior: Clip.hardEdge,
           elevation: 15,
