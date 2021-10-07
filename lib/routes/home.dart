@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
                       // scrollDirection: Axis.horizontal,
                       gridDelegate:
                           const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 300, childAspectRatio: .6),
+                              maxCrossAxisExtent: 300, childAspectRatio: .55),
                       children: products.products!
                           .map((product) => ProductCard(product: product))
                           .toList(),

@@ -6,7 +6,8 @@ MaterialPageRoute materialPageRoute(
     {required int id,
     required String image,
     required String title,
-    required String description}) {
+    required String description,
+    required double price}) {
   return MaterialPageRoute(builder: (BuildContext context) {
     var cart = Provider.of<CartState>(context);
 
@@ -51,48 +52,62 @@ MaterialPageRoute materialPageRoute(
           )
         ],
       ),
-      body: Card(
-        clipBehavior: Clip.hardEdge,
-        elevation: 15,
-        child: Column(children: [
-          Flexible(child: Container()),
-          AspectRatio(
-            aspectRatio: 1,
-            child: Image.network(image, fit: BoxFit.cover),
-          ),
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Text(title, style: Theme.of(context).textTheme.headline5),
-                    const SizedBox(height: 10),
-                    Text(description,
-                        style: Theme.of(context).textTheme.caption),
-                  ])),
-          Flexible(child: Container()),
-          ElevatedButton(
-            style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(const Size(0, 40)),
-                elevation: MaterialStateProperty.all(15),
-                overlayColor: MaterialStateProperty.all(Colors.yellow),
-                alignment: Alignment.center,
-                backgroundColor: MaterialStateProperty.all(Colors.blue[800])),
-            onPressed: () => print('Done'),
-            child: const Text(
-              'Buy',
-              style: TextStyle(
-                  color: Colors.white,
+      body: ListView(children: [
+        Card(
+          clipBehavior: Clip.hardEdge,
+          elevation: 15,
+          child: Column(children: [
+            Flexible(child: Container()),
+            AspectRatio(
+              aspectRatio: 1,
+              child: Image.network(image, fit: BoxFit.cover),
+            ),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(title, style: Theme.of(context).textTheme.headline5),
+                      const SizedBox(height: 10),
+                      Text(description,
+                          style: Theme.of(context).textTheme.caption),
+                    ])),
+            Center(
+              child: Text(
+                price.toString(),
+                style: const TextStyle(
                   letterSpacing: 5,
                   shadows: [
-                    Shadow(color: Colors.white, blurRadius: 15),
+                    Shadow(color: Colors.black, blurRadius: 8),
                   ],
-                  fontSize: 27),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 25,
+                ),
+              ),
             ),
-          ),
-          const SizedBox(height: 5),
-        ]),
-      ),
+            ElevatedButton(
+              style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.all(const Size(0, 40)),
+                  elevation: MaterialStateProperty.all(15),
+                  overlayColor: MaterialStateProperty.all(Colors.yellow),
+                  alignment: Alignment.center,
+                  backgroundColor: MaterialStateProperty.all(Colors.blue[800])),
+              onPressed: () => print('Done'),
+              child: const Text(
+                'Buy',
+                style: TextStyle(
+                    color: Colors.white,
+                    letterSpacing: 5,
+                    shadows: [
+                      Shadow(color: Colors.white, blurRadius: 15),
+                    ],
+                    fontSize: 27),
+              ),
+            ),
+            const SizedBox(height: 5),
+          ]),
+        ),
+      ]),
     );
   });
 }

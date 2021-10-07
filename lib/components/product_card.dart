@@ -22,7 +22,8 @@ class ProductCard extends StatelessWidget {
             id: product.id,
             image: product.image,
             title: product.title,
-            description: product.description)),
+            description: product.description,
+            price: product.price)),
         child: Card(
           clipBehavior: Clip.hardEdge,
           elevation: 15,
@@ -50,20 +51,34 @@ class ProductCard extends StatelessWidget {
             ),
             Flexible(child: Container()),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(product.title,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          style: Theme.of(context).textTheme.headline6),
-                      Text(product.description,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
-                          style: Theme.of(context).textTheme.caption),
-                    ])),
-            Flexible(child: Container()),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(product.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.headline6),
+                    Text(product.description,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: Theme.of(context).textTheme.caption),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: Text(
+                        product.price.toString(),
+                        style: const TextStyle(
+                          letterSpacing: 5,
+                          shadows: [
+                            Shadow(color: Colors.black, blurRadius: 8),
+                          ],
+                          fontWeight: FontWeight.w700,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ),
+                  ]),
+            ),
             Counter(
                 value: cart.entries[product.id]?.quantity ?? 0,
                 onUpdate: (count) =>
