@@ -27,6 +27,31 @@ class UserFeedback extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          const Padding(
+            padding: EdgeInsets.all(20.0),
+            child: CircleAvatar(
+              backgroundImage: AssetImage('assets/zoro.gif'),
+              radius: 60,
+            ),
+          ),
+          const Text(
+            'mor_2314',
+            style: TextStyle(
+              letterSpacing: 5,
+              shadows: [
+                Shadow(color: Colors.black, blurRadius: 15),
+              ],
+              fontWeight: FontWeight.w700,
+              fontSize: 25,
+            ),
+          ),
+          const Divider(
+            height: 15,
+            color: Colors.white,
+            thickness: 1,
+            indent: 40,
+            endIndent: 40,
+          ),
           const TextField(
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.done,

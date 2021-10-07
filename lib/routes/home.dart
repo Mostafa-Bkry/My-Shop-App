@@ -49,26 +49,27 @@ class HomePage extends StatelessWidget {
                   onPressed: () =>
                       Navigator.of(context).pushNamed('/favorites')),
               IconButton(
-                  onPressed: () => Navigator.of(context).pushNamed('/cart'),
-                  icon: Stack(children: [
-                    const Icon(
-                      Icons.shopping_cart,
-                      size: 35,
-                    ),
-                    Positioned(
-                      right: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10)),
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
-                        child: Text(
-                          cart.count.toString(),
-                          style: const TextStyle(fontSize: 15),
-                        ),
+                onPressed: () => Navigator.of(context).pushNamed('/cart'),
+                icon: Stack(children: [
+                  const Icon(
+                    Icons.shopping_cart,
+                    size: 35,
+                  ),
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(10)),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Text(
+                        cart.count.toString(),
+                        style: const TextStyle(fontSize: 15),
                       ),
                     ),
-                  ]))
+                  ),
+                ]),
+              )
             ],
             bottom: TabBar(
                 unselectedLabelColor: Colors.white,
