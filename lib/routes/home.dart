@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     var products = context.watch<ProductsState>();
 
     return DefaultTabController(
-      length: 2,
+      length: 6,
       child: Scaffold(
           drawer: const MyDrawer(),
           appBar: AppBar(
@@ -72,16 +72,30 @@ class HomePage extends StatelessWidget {
               )
             ],
             bottom: TabBar(
+                isScrollable: true,
                 unselectedLabelColor: Colors.white,
                 labelColor: Colors.yellow,
                 overlayColor: MaterialStateProperty.all(Colors.black),
                 tabs: const [
                   Tab(
-                    icon: Icon(Icons.production_quantity_limits_rounded),
+                    icon: Icon(Icons.production_quantity_limits_rounded,
+                        size: 27),
                   ),
                   Tab(
-                    icon: Icon(Icons.devices_other_rounded),
-                  )
+                    icon: Icon(Icons.devices, size: 27),
+                  ),
+                  Tab(
+                    icon: Text('Jewe', style: TextStyle(fontSize: 19)),
+                  ),
+                  Tab(
+                    icon: Text('Electro', style: TextStyle(fontSize: 19)),
+                  ),
+                  Tab(
+                    icon: Text('Men', style: TextStyle(fontSize: 19)),
+                  ),
+                  Tab(
+                    icon: Text('Women', style: TextStyle(fontSize: 19)),
+                  ),
                 ]),
           ),
           body: products.products == null
@@ -106,7 +120,55 @@ class HomePage extends StatelessWidget {
                           .map((product) => ProductTile(product: product))
                           .toList(),
                     ),
-                  )
+                  ),
+                  RefreshIndicator(
+                    onRefresh: products.refresh,
+                    child: GridView(
+                      // scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 300, childAspectRatio: .55),
+                      children: products.products!
+                          .map((product) => ProductCard(product: product))
+                          .toList(),
+                    ),
+                  ),
+                  RefreshIndicator(
+                    onRefresh: products.refresh,
+                    child: GridView(
+                      // scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 300, childAspectRatio: .55),
+                      children: products.products!
+                          .map((product) => ProductCard(product: product))
+                          .toList(),
+                    ),
+                  ),
+                  RefreshIndicator(
+                    onRefresh: products.refresh,
+                    child: GridView(
+                      // scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 300, childAspectRatio: .55),
+                      children: products.products!
+                          .map((product) => ProductCard(product: product))
+                          .toList(),
+                    ),
+                  ),
+                  RefreshIndicator(
+                    onRefresh: products.refresh,
+                    child: GridView(
+                      // scrollDirection: Axis.horizontal,
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent: 300, childAspectRatio: .55),
+                      children: products.products!
+                          .map((product) => ProductCard(product: product))
+                          .toList(),
+                    ),
+                  ),
                 ]),
           bottomNavigationBar: const MyBottomBar()),
     );
