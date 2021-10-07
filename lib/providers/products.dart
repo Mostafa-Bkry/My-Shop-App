@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_shop/types/product.dart';
 import 'package:http/http.dart' as http;
@@ -16,6 +15,7 @@ class ProductsState extends ChangeNotifier {
         await http.get(Uri.parse('https://fakestoreapi.com/products'));
 
     var json = jsonDecode(response.body);
+    print(json);
 
     products = (json as List<dynamic>)
         .map((value) => Product.fromJson(value))
